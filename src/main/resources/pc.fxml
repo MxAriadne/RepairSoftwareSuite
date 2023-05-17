@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
+      <Button layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
+      <Button id="selected" layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
+      <Button layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
+      <Button layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
+      <Pane id="flash-content-box" layoutX="7.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="54.0" layoutY="14.0" text="Clone Drive" />
+            <MenuButton layoutX="14.0" layoutY="117.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <MenuButton layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Text layoutX="14.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
+            <Text layoutX="14.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To:" />
+         </children></Pane>
+      <Pane id="flash-content-box" layoutX="218.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="54.0" layoutY="14.0" text="ISO Flash" />
+            <MenuButton layoutX="13.0" layoutY="115.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Text layoutX="14.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OS:" />
+            <Text layoutX="18.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISO: (Leave blank for automatic download)" wrappingWidth="171.9609375" />
+            <MenuButton layoutX="13.0" layoutY="233.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Text layoutX="18.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Device:" wrappingWidth="171.9609375" />
+            <MenuButton layoutX="13.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Button layoutX="65.0" layoutY="428.0" mnemonicParsing="false" text="Flash" />
+         </children>
+      </Pane>
+      <Pane id="flash-content-box" layoutX="429.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="36.0" layoutY="14.0" text="Backup/Restore" />
+         </children>
+      </Pane>
+      <Pane id="flash-content-box" layoutX="640.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="42.0" layoutY="14.0" text="Battery Health" />
+            <Text layoutX="35.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Health%: ??? " textAlignment="CENTER" />
+            <Text layoutX="35.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alerts: None" textAlignment="CENTER" />
+            <Text layoutX="35.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estimated lifespan:" textAlignment="CENTER" />
+            <Button layoutX="69.0" layoutY="428.0" mnemonicParsing="false" text="Scan" />
+         </children>
+      </Pane>
+      <Pane id="flash-content-box" layoutX="851.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="50.0" layoutY="14.0" text="EXT4 Viewer" />
+            <MenuButton layoutX="14.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Text layoutX="14.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drive:" />
+         </children>
+      </Pane>
+      <Pane id="flash-content-box" layoutX="1062.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+         <children>
+            <Label layoutX="45.0" layoutY="14.0" text="Unencryption" />
+            <MenuButton layoutX="14.0" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="182.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Text layoutX="14.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drive:" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button id="selected" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
+      <Button layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
+      <Button layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
+      <Button layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
+      <Button layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
+      <Pane id="flash-content-box" layoutX="97.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+         <children>
+            <Label prefHeight="73.0" prefWidth="286.0" text="                Firmware Flash" textAlignment="CENTER">
+            </Label>
+            <ListView layoutX="27.0" layoutY="107.0" prefHeight="337.0" prefWidth="233.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+         </children></Pane>
+      <Pane id="data-content-box" layoutX="497.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
+         <children>
+            <Label prefHeight="73.0" prefWidth="286.0" text="                 Data Transfer" textAlignment="CENTER">
+            </Label>
+            <Label layoutX="14.0" layoutY="155.0" prefHeight="33.0" prefWidth="139.0" text="From:" />
+            <Label layoutX="14.0" layoutY="260.0" prefHeight="33.0" prefWidth="139.0" text="To:" />
+            <Accordion layoutX="52.0" layoutY="283.0" />
+            <MenuButton layoutX="16.0" layoutY="197.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <MenuButton layoutX="15.0" layoutY="300.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+         </children></Pane>
+      <Pane id="backup-content-box" layoutX="896.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+         <children>
+            <Label prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
+            </Label>
+            <Label layoutX="16.0" layoutY="87.0" prefHeight="33.0" prefWidth="139.0" text="Device:" />
+            <MenuButton layoutX="15.0" layoutY="130.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="187.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="98.0" text="Button" textAlignment="CENTER" />
+            <ListView layoutX="27.0" layoutY="257.0" prefHeight="209.0" prefWidth="233.0" />
+         </children></Pane>
+   </children>
+</Pane>

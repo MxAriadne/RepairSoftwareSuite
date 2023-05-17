@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Coolvetica';
+    src: url('fonts/coolvetica.otf');
+}
+
+.button {
+    -fx-font : 24px "Coolvetica";
+    -fx-padding : 10;
+    -fx-font-weight : bold;
+    -fx-background-color : #4B6153;
+    -fx-background-radius: 0px;
+}
+
+Label {
+    -fx-font : 18px "Coolvetica";
+    -fx-font-weight : bold;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color: #EAE6BB;
+}
+
+Text {
+    -fx-font : 16px "Coolvetica";
+    -fx-border-style: hidden hidden hidden hidden;
+}
+
+#selected {
+    -fx-background-color: #82917F;
+}
+
+#flash-content-box {
+    -fx-background-color: #A8B3A6;
+}
+
+#data-content-box {
+    -fx-background-color: #A8B3A6;
+}
+
+#backup-content-box {
+    -fx-background-color: #A8B3A6;
+}
+
+.root {
+    -fx-font-family : "Coolvetica";
+    -fx-background1 : rgb(225,227,2255);
+}
