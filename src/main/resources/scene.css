@@ -24,6 +24,10 @@ Text {
     -fx-border-style: hidden hidden hidden hidden;
 }
 
+.choice-box > .label {
+    -fx-font : 12px "Coolvetica";
+}
+
 #selected {
     -fx-background-color: #82917F;
 }

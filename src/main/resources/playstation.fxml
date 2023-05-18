@@ -8,13 +8,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="com.freyja.controllers.PlaystationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
-      <Button layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
-      <Button layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
-      <Button layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
-      <Button id="selected" layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
+      <Button fx:id="apple" onAction="#handleButtonClick" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
+      <Button fx:id="android" onAction="#handleButtonClick" layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
+      <Button fx:id="pc" onAction="#handleButtonClick" layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
+      <Button fx:id="xbox" onAction="#handleButtonClick" layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
+      <Button fx:id="playstation" onAction="#handleButtonClick" id="selected" layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
       <Pane id="flash-content-box" layoutX="97.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="                Firmware Flash" textAlignment="CENTER">
