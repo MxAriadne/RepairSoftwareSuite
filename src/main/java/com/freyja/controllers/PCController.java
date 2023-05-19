@@ -12,12 +12,14 @@
 package com.freyja.controllers;
 
 import com.freyja.SceneController;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,8 +29,10 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -37,6 +41,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PCController {
 
@@ -90,25 +97,26 @@ public class PCController {
     }
 
     @FXML
-    private Button apple;
+    private Button apple, android,pc, playstation, xbox, cancelclone;
 
     @FXML
-    private Button android;
+    private Text transfertext, healthpercent, alerts;
 
     @FXML
-    private Button pc;
+    private ProgressBar transferprogress;
 
-    @FXML
-    private Button playstation;
-
-    @FXML
-    private Button xbox;
+    private static final String BATTERYCOMMAND = "powercfg.exe /batteryreport /xml";
 
     @FXML
     private void handleButtonClick(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getTarget()).getScene().getWindow();
         SceneController sceneController = new SceneController();
         Button clickedButton = (Button) e.getSource();
+
+        if (!transfertext.getText().isEmpty()) {
+            ProcessBuilder processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "Robocopy.exe");
+            processBuilder.start();
+        }
 
         if (clickedButton == apple) {
             // Apple button was clicked
@@ -125,6 +133,12 @@ public class PCController {
         } else if (clickedButton == xbox) {
             // Xbox button was clicked
             sceneController.setView(stage, "/xbox.fxml");
+        } else if (clickedButton == cancelclone) {
+            ProcessBuilder processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "Robocopy.exe");
+            processBuilder.start();
+            cancelclone.setVisible(false);
+            transfertext.setVisible(false);
+            transferprogress.setVisible(false);
         }
     }
 
@@ -138,15 +152,7 @@ public class PCController {
 
         return offsetDateTime.format(outputFormatter);
     }
-
-    @FXML
-    private Text healthpercent;
-
-    @FXML
-    private Text alerts;
-
-    private static final String BATTERYCOMMAND = "powercfg.exe /batteryreport /xml";
-
+    
     public void getBatteryReport() {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", BATTERYCOMMAND);
@@ -238,31 +244,137 @@ public class PCController {
 
     }
 
-    public void cloneDrives(ActionEvent e) {
-
-        /*String sourceDrive = e.getSource().getClass()."C:\\";  // Replace with the appropriate source drive
-        String targetDrive = "D:\\";  // Replace with the appropriate target drive
-
+    public void cloneDrives() {
         try {
-            // Create the ProcessBuilder with the command and parameters
-            ProcessBuilder processBuilder = new ProcessBuilder("robocopy", sourceDrive, targetDrive, "/MIR");
+            String sourceDrive = originaldrive.getValue().replaceAll("[Capcity: ]+\\d*[.]\\d* [A-Z]*", "").trim();
+            String targetDrive = startingdrive.getValue().replaceAll("[Capcity: ]+\\d*[.]\\d* [A-Z]*", "").trim();
 
-            // Start the process
-            Process process = processBuilder.start();
+            CompletableFuture.runAsync(() -> {
+                try {
+                    ProcessBuilder processBuilder = new ProcessBuilder("robocopy", sourceDrive, targetDrive, "/E", "/PURGE", "/R:0", "/W:0");
+                    Process process = processBuilder.start();
 
-            // Wait for the process to complete
-            int exitCode = process.waitFor();
+                    Thread outputThread = new Thread(() -> {
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                            String line;
+                            String item = "?";
 
-            if (exitCode == 0) {
-                System.out.println("Drive cloned successfully!");
-            } else {
-                System.out.println("Drive cloning failed.");
-            }
-        } catch (IOException | InterruptedException ex) {
+                            while ((line = reader.readLine()) != null) {
+                                Pattern pattern = Pattern.compile("[A-z0-9]*.[A-z]*[^% ]$");
+                                Matcher matcher = pattern.matcher(line);
+                                if (matcher.find() && (matcher.group(0) != null)) {
+                                        item = matcher.group(0);
+                                }
+
+                                double progress = 0.0;
+                                line = line.replaceAll("^(?!.*\\d*[.]\\d*%).*$", "");
+                                if (!line.isEmpty()) {
+                                    progress = Double.parseDouble(line.replace("%", ""));
+                                }
+
+                                final String finalPercent = line;
+                                final String finalItem = item;
+                                final double finalProgress = (progress / 100);
+
+                                Platform.runLater(() -> {
+                                    transferprogress.setVisible(true);
+                                    cancelclone.setVisible(true);
+                                    transferprogress.setProgress(finalProgress);
+                                    transfertext.setText(finalItem + "\n" + finalPercent);
+                                });
+                            }
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                            process.destroyForcibly();
+                        }
+                    });
+
+                    outputThread.start();
+
+                    int exitCode = process.waitFor();
+
+                    outputThread.join();
+
+                    Platform.runLater(() -> {
+                        switch (exitCode) {
+                            case 0 -> {
+                                transfertext.setText("The source and destination\nare already identical.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 1, 2 -> {
+                                transfertext.setText("Drive cloned successfully!");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 3 -> {
+                                transfertext.setText("Success: Additional files were detected.\nNo failure was encountered");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 4 -> {
+                                transfertext.setText("Success: Some mismatched files or\ndirectories were detected.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 5 -> {
+                                transfertext.setText("Success: Some files were mismatched.\nNo failure was encountered!");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 6 -> {
+                                transfertext.setText("Success: No files were copied\nand no failures were encountered.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 7 -> {
+                                transfertext.setText("Success: Files were copied, a file\nmismatch was present, and\nadditional files were present.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 8 -> {
+                                transfertext.setText("Error: Copy errors occurred and\nthe retry limit was exceeded.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 9 -> {
+                                transfertext.setText("Error: Drive cloned\nsuccessfully!");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 10, 11, 12, 13, 14, 15 -> {
+                                transfertext.setText("Error: An unkown error has\ncaused transfer failure.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            case 16 -> {
+                                transfertext.setText("Error: Major errors have occurred.\nNothing was copied.");
+                                transferprogress.setVisible(false);
+                                cancelclone.setVisible(false);
+                                process.destroyForcibly();
+                            }
+                            default -> throw new IllegalStateException("Unexpected value: " + exitCode);
+                        }
+                    });
+                } catch (IOException | InterruptedException ex) {
+                    ex.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+            });
+        } catch (Exception ex) {
             ex.printStackTrace();
-            Thread.currentThread().interrupt();
+            // Handle the exception or display an error message to the user
         }
-        */
     }
 
 }

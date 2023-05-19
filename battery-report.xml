@@ -2,12 +2,12 @@
 <?xml-stylesheet type='text/xsl' href='C:\battery-stylesheet.xsl'?>
 <BatteryReport xmlns="http://schemas.microsoft.com/battery/2012">
   <ReportInformation>
-    <ReportGuid>5081060d-bd8d-4141-a447-458ebd7f7bdc</ReportGuid>
+    <ReportGuid>7338ba5b-28ef-4233-8798-e54c0813e6ae</ReportGuid>
     <ReportVersion>1.1</ReportVersion>
-    <ScanTime>2023-05-18T06:49:28Z</ScanTime>
-    <LocalScanTime>2023-05-18T01:49:28</LocalScanTime>
-    <ReportStartTime>2023-05-15T06:49:28Z</ReportStartTime>
-    <LocalReportStartTime>2023-05-15T01:49:28</LocalReportStartTime>
+    <ScanTime>2023-05-18T20:31:55Z</ScanTime>
+    <LocalScanTime>2023-05-18T15:31:55</LocalScanTime>
+    <ReportStartTime>2023-05-15T20:31:55Z</ReportStartTime>
+    <LocalReportStartTime>2023-05-15T15:31:55</LocalReportStartTime>
     <ReportDuration>3</ReportDuration>
     <UtcOffset>-5:00</UtcOffset>
   </ReportInformation>
@@ -37,9 +37,9 @@
   </RuntimeEstimates>
   <RecentUsage>
     <UsageEntry
-      Timestamp="2023-05-15T07:09:00Z"
-      LocalTimestamp="2023-05-15T02:09:00"
-      Duration="2580282782525"
+      Timestamp="2023-05-15T21:07:00Z"
+      LocalTimestamp="2023-05-15T16:07:00"
+      Duration="2417399965854"
       Ac="1"
       EntryType="Active"
       ChargeCapacity="0"
@@ -48,9 +48,31 @@
       IsNextOnBattery="0"
       />
     <UsageEntry
-      Timestamp="2023-05-18T06:49:28Z"
-      LocalTimestamp="2023-05-18T01:49:28"
-      Duration="18446744073709531679"
+      Timestamp="2023-05-18T16:16:00Z"
+      LocalTimestamp="2023-05-18T11:16:00"
+      Duration="33544066737"
+      Ac="1"
+      EntryType="Suspend"
+      ChargeCapacity="0"
+      Discharge="0"
+      FullChargeCapacity="0"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2023-05-18T17:11:54Z"
+      LocalTimestamp="2023-05-18T12:11:54"
+      Duration="120013277811"
+      Ac="1"
+      EntryType="Active"
+      ChargeCapacity="0"
+      Discharge="0"
+      FullChargeCapacity="0"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2023-05-18T20:31:55Z"
+      LocalTimestamp="2023-05-18T15:31:55"
+      Duration="18446744073709531650"
       Ac="1"
       EntryType="ReportGenerated"
       ChargeCapacity="0"

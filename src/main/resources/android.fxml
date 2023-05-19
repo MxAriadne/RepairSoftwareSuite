@@ -2,25 +2,34 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<Pane fx:controller="com.freyja.controllers.AndroidController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.freyja.controllers.AndroidController">
    <children>
-      <Button fx:id="apple" onAction="#handleButtonClick" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
-      <Button fx:id="android" id="selected" onAction="#handleButtonClick" layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
-      <Button fx:id="pc" onAction="#handleButtonClick" layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
-      <Button fx:id="xbox" onAction="#handleButtonClick" layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
-      <Button fx:id="playstation" onAction="#handleButtonClick" layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
+      <Button fx:id="apple" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Apple" />
+      <Button id="selected" fx:id="android" layoutX="256.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Android" />
+      <Button fx:id="pc" layoutX="512.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="PC" />
+      <Button layoutX="768.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Xbox" fx:id="xbox" />
+      <Button fx:id="playstation" layoutX="1024.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Playstation" />
       <Pane id="flash-content-box" layoutX="20.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="                Firmware Flash" textAlignment="CENTER">
+            <Label layoutX="-20.0" prefHeight="73.0" prefWidth="311.0" text="                Firmware Flash" textAlignment="CENTER">
             </Label>
-            <ListView layoutX="27.0" layoutY="107.0" prefHeight="337.0" prefWidth="233.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+            <Button fx:id="flashbtn" alignment="CENTER" contentDisplay="CENTER" layoutX="103.0" layoutY="478.0" mnemonicParsing="false" text="Flash" textAlignment="CENTER" />
+            <ChoiceBox fx:id="deviceselect" layoutX="15.0" layoutY="109.0" prefHeight="48.0" prefWidth="256.0" />
+            <Text layoutX="44.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Select the device to flash." />
+            <Button fx:id="bootloaderbtn" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="228.0" mnemonicParsing="false" onAction="#bootToBootloader" prefHeight="55.0" prefWidth="256.0" style="-fx-font-size: 18;" text="3. Reboot to bootloader." textAlignment="CENTER" />
+            <Text layoutX="44.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Enable OEM Unlock." wrappingWidth="166.0" />
+            <Button fx:id="firmwareselector" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="313.0" mnemonicParsing="false" onAction="#selectOSImage" prefHeight="55.0" prefWidth="256.0" style="-fx-font-size: 18;" text="4. Select firmware file" textAlignment="CENTER" />
+            <TextField fx:id="pathtxt" layoutX="13.0" layoutY="401.0" prefHeight="25.0" prefWidth="256.0" promptText="Or input path manually..." />
+            <Button fx:id="oemunlocktip" layoutX="191.0" layoutY="166.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
+            <Button fx:id="flashtip" layoutX="179.0" layoutY="9.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.4" scaleY="0.4" scaleZ="0.4" styleClass="circle-info" />
+            <Text fx:id="firmwareerrortxt" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="280" />
          </children></Pane>
       <Pane id="data-content-box" layoutX="338.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
          <children>
@@ -29,34 +38,28 @@
             <Label layoutX="14.0" layoutY="155.0" prefHeight="33.0" prefWidth="139.0" text="From:" />
             <Label layoutX="14.0" layoutY="260.0" prefHeight="33.0" prefWidth="139.0" text="To:" />
             <Accordion layoutX="52.0" layoutY="283.0" />
-            <MenuButton layoutX="16.0" layoutY="197.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
-            <MenuButton layoutX="15.0" layoutY="300.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-            </MenuButton>
+            <ChoiceBox layoutX="16.0" layoutY="197.0" prefHeight="48.0" prefWidth="256.0">
+            </ChoiceBox>
+            <ChoiceBox layoutX="15.0" layoutY="300.0" prefHeight="48.0" prefWidth="256.0">
+            </ChoiceBox>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
          </children></Pane>
       <Pane id="backup-content-box" layoutX="656.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
+            <Button fx:id="cancelbackup" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="208.0" mnemonicParsing="false" onAction="#backupADB" prefHeight="55.0" prefWidth="106.0" style="-fx-background-color: CFBB3F;" text="Cancel" textAlignment="CENTER" visible="false" />
+            <Label layoutX="-1.0" prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
             </Label>
             <Label layoutX="16.0" layoutY="87.0" prefHeight="33.0" prefWidth="139.0" text="Device:" />
-            <MenuButton layoutX="15.0" layoutY="130.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-            </MenuButton>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="187.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="98.0" text="Button" textAlignment="CENTER" />
-            <ListView layoutX="27.0" layoutY="257.0" prefHeight="209.0" prefWidth="233.0" />
+            <ChoiceBox fx:id="backupchoice" layoutX="15.0" layoutY="130.0" prefHeight="48.0" prefWidth="256.0">
+            </ChoiceBox>
+            <Button fx:id="restorebutton" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="496.0" mnemonicParsing="false" onAction="#restoreADB" text="Restore" textAlignment="CENTER" />
+            <Button fx:id="beginbackup" alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="208.0" mnemonicParsing="false" onAction="#backupADB" prefHeight="55.0" prefWidth="106.0" text="Backup" textAlignment="CENTER" />
+            <ListView fx:id="restorelist" layoutX="9.0" layoutY="280.0" prefHeight="209.0" prefWidth="269.0" />
+            <Text fx:id="timeelapsed" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="286.0" />
+            <Button fx:id="deletebackup" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="55.0" prefWidth="106.0" style="-fx-background-color: b9484e;" text="Delete" textAlignment="CENTER" />
+            <Button fx:id="cancelrestore" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="496.0" mnemonicParsing="false" onAction="#restoreADB" prefHeight="55.0" prefWidth="106.0" style="-fx-background-color: CFBB3F;" text="Cancel" textAlignment="CENTER" visible="false" />
+            <Text fx:id="lastresorttext" layoutX="21.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST RESORT" visible="false" wrappingWidth="97.77734375" />
+            <Button fx:id="devicetip" layoutX="70.0" layoutY="77.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
          </children></Pane>
       <Pane id="backup-content-box" layoutX="973.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
