@@ -15,7 +15,7 @@
       <Button id="selected" style="-fx-background-radius: 0px;" fx:id="pc" layoutX="512.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" text="PC" />
       <Button layoutX="768.0" style="-fx-background-radius: 0px;" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" text="Xbox" fx:id="xbox" />
       <Button fx:id="playstation" style="-fx-background-radius: 0px;" layoutX="1024.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
-      <Pane id="flash-content-box" style="-fx-background-radius: 0px;" layoutX="7.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" style="-fx-background-radius: 0px;" layoutX="7.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="46.0" layoutY="14.0" text="Data Transfer" />
             <ChoiceBox fx:id="originaldrive" layoutX="13.0" layoutY="116.0" prefHeight="40.0" prefWidth="182.0">
@@ -29,7 +29,7 @@
             <Text fx:id="transfertext" layoutX="-4.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="219.0" />
             <Button fx:id="cancelclone" layoutX="44.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="55.0" prefWidth="113.0" style="-fx-background-color: CFBB3F;" text="Cancel" visible="false" />
          </children></Pane>
-      <Pane id="flash-content-box" layoutX="218.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" layoutX="218.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="54.0" layoutY="14.0" text="ISO Flash" />
             <ChoiceBox layoutX="13.0" layoutY="115.0" prefHeight="40.0" prefWidth="182.0">
@@ -44,12 +44,12 @@
             <Button layoutX="65.0" layoutY="428.0" mnemonicParsing="false" text="Flash" />
          </children>
       </Pane>
-      <Pane id="flash-content-box" layoutX="429.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" layoutX="429.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="36.0" layoutY="14.0" text="Backup/Restore" />
          </children>
       </Pane>
-      <Pane id="flash-content-box" layoutX="640.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" layoutX="640.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="42.0" layoutY="14.0" text="Battery Health" />
             <Text fx:id="healthpercent" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Battery Health: ??? " textAlignment="CENTER" wrappingWidth="219.0" />
@@ -57,7 +57,7 @@
             <Button layoutX="69.0" layoutY="428.0" mnemonicParsing="false" onAction="#getBatteryReport" text="Scan" />
          </children>
       </Pane>
-      <Pane id="flash-content-box" layoutX="851.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" layoutX="851.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="50.0" layoutY="14.0" text="EXT4 Viewer" />
             <ChoiceBox layoutX="14.0" layoutY="115.0" prefHeight="40.0" prefWidth="182.0">
@@ -65,7 +65,7 @@
             <Text layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drive:" />
          </children>
       </Pane>
-      <Pane id="flash-content-box" layoutX="1062.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
+      <Pane id="content-box" layoutX="1062.0" layoutY="108.0" prefHeight="565.0" prefWidth="210.0">
          <children>
             <Label layoutX="54.0" layoutY="14.0" text="Decryption " />
             <ChoiceBox layoutX="14.0" layoutY="115.0" prefHeight="40.0" prefWidth="182.0">

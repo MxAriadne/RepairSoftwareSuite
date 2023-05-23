@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Main-Class: com.freyja.Main
+Class-Path: formsfx-core-11.5.0.jar countries-17.0.23.jar fxgl-17.2.jar 
+ annotations-13.0.jar javafx-fxml-20-ea+4.jar javafx-web-20-ea+4-win.jar
+  javafx-fxml-20-ea+4-win.jar fxgl-entity-17.2.jar controlsfx-11.1.2.jar
+  fxgl-core-17.2.jar commons-io-2.6.jar fxgl-io-17.2.jar audio-4.0.13.ja
+ r jackson-databind-2.12.1.jar kotlin-stdlib-1.6.0-modular.jar jackson-a
+ nnotations-2.12.1.jar javafx-controls-20-ea+4.jar bootstrapfx-core-0.4.
+ 0.jar fxgl-gameplay-17.2.jar kotlin-stdlib-common-1.6.0.jar javafx-web-
+ 20-ea+4.jar jsoup-1.15.4.jar validatorfx-0.4.0.jar jackson-core-2.12.1.
+ jar javafx-media-20-ea+4.jar javafx-media-20-ea+4-win.jar util-4.0.13.j
+ ar ikonli-core-12.3.1.jar heatmap-17.0.12.jar toolboxfx-17.0.29.jar sto
+ rage-4.0.13.jar javafx-graphics-20-ea+4-win.jar javafx-base-20-ea+4-win
+ .jar tilesfx-17.1.15.jar lifecycle-4.0.13.jar fxgl-scene-17.2.jar javaf
+ x-graphics-20-ea+4.jar toolbox-17.0.26.jar javafx-controls-20-ea+4-win.
+ jar ikonli-javafx-12.3.1.jar javafx-base-20-ea+4.jar
+

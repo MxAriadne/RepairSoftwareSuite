@@ -37,15 +37,7 @@ Text {
     -fx-background-color: #82917F;
 }
 
-#flash-content-box {
-    -fx-background-color: #A8B3A6;
-}
-
-#data-content-box {
-    -fx-background-color: #A8B3A6;
-}
-
-#backup-content-box {
+#content-box {
     -fx-background-color: #A8B3A6;
 }
 
