@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.freyja.controllers.AndroidController">
+<Pane id="content-box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.freyja.controllers.AndroidController">
    <children>
       <Button fx:id="apple" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Apple" />
       <Button id="selected" fx:id="android" layoutX="256.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Android" />
       <Button fx:id="pc" layoutX="512.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="PC" />
       <Button layoutX="768.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Xbox" fx:id="xbox" />
       <Button fx:id="playstation" layoutX="1024.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Playstation" />
-      <Pane id="content-box" layoutX="338.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
+      <Pane layoutX="338.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="                 Data Transfer" textAlignment="CENTER">
             </Label>
@@ -28,7 +28,7 @@
             </ChoiceBox>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
          </children></Pane>
-      <Pane id="content-box" layoutX="656.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane layoutX="656.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
             <Button fx:id="cancelbackup" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="208.0" mnemonicParsing="false" onAction="#backupADB" prefHeight="55.0" prefWidth="106.0" style="-fx-background-color: CFBB3F;" text="Cancel" textAlignment="CENTER" visible="false" />
             <Label layoutX="-1.0" prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
@@ -45,12 +45,21 @@
             <Text fx:id="lastresorttext" layoutX="21.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST RESORT" visible="false" wrappingWidth="97.77734375" />
             <Button fx:id="devicetip" layoutX="70.0" layoutY="77.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
          </children></Pane>
-      <Pane id="content-box" layoutX="973.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane fx:id="adbpane" layoutX="973.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="                 ADB Terminal" textAlignment="CENTER" />
+            <Label layoutX="1.0" prefHeight="73.0" prefWidth="286.0" text="                ADB Functions" textAlignment="CENTER" />
+            <Button fx:id="adbboot" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="47.0" prefWidth="223.0" style="-fx-font-size: 18;" text="Reboot to bootloader" textAlignment="CENTER" />
+            <Button fx:id="adbrecovery" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="286.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="47.0" prefWidth="223.0" style="-fx-font-size: 18;" text="Reboot to recovery" textAlignment="CENTER" />
+            <Button fx:id="adbimei" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="47.0" prefWidth="223.0" style="-fx-font-size: 18;" text="Get IMEI" textAlignment="CENTER" />
+            <Button fx:id="adboemunlock" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="47.0" prefWidth="223.0" style="-fx-font-size: 18;" text="OEM Unlock" textAlignment="CENTER" />
+            <Button fx:id="adboemlock" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="47.0" prefWidth="223.0" style="-fx-font-size: 18;" text="OEM Lock" textAlignment="CENTER" />
+            <Label layoutX="17.0" layoutY="86.0" prefHeight="33.0" prefWidth="139.0" text="Device:" />
+            <ChoiceBox fx:id="adbselect" layoutX="16.0" layoutY="129.0" prefHeight="48.0" prefWidth="256.0" />
+            <Button fx:id="devicetip1" layoutX="71.0" layoutY="76.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="56.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
+            <Text fx:id="adberrortext" layoutX="15.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="280" />
          </children>
       </Pane>
-      <Pane id="content-box" fx:id="firmwarepane" layoutX="22.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane fx:id="firmwarepane" layoutX="22.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" visible="false">
          <children>
             <Label layoutX="2.0" prefHeight="73.0" prefWidth="287.0" text="          Firmware Flash" textAlignment="CENTER" />
             <Text layoutX="16.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What manufacturer?" />
@@ -59,22 +68,23 @@
             <Button fx:id="mannext" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="0.0" prefWidth="188.0" style="-fx-font-size: 18;" text="Next" textAlignment="CENTER" />
          </children>
       </Pane>
-      <Pane id="content-box" fx:id="pixelpane" layoutX="21.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" visible="false">
+      <Pane fx:id="pixelpane" layoutX="21.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="       Pixel Firmware Flash" textAlignment="CENTER" />
             <Button fx:id="pixelflashbtn" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="468.0" mnemonicParsing="false" onAction="#flashPixelImage" prefHeight="55.0" prefWidth="112.0" text="Flash" textAlignment="CENTER" />
             <ChoiceBox fx:id="pixelselect" layoutX="15.0" layoutY="109.0" prefHeight="25.0" prefWidth="256.0" />
             <Text layoutX="46.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Select the device to flash." />
-            <Button fx:id="bootloaderbtnpixel" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="201.0" mnemonicParsing="false" onAction="#bootToBootloader" prefHeight="33.0" prefWidth="256.0" style="-fx-font-size: 18;" text="3. Reboot to bootloader." textAlignment="CENTER" />
-            <Text layoutX="50.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Enable OEM Unlock." wrappingWidth="166.0" />
-            <Button fx:id="oemunlocktip" layoutX="193.0" layoutY="141.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
+            <Button fx:id="bootloaderbtnpixel" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="186.0" mnemonicParsing="false" onAction="#bootToBootloader" prefHeight="33.0" prefWidth="256.0" style="-fx-font-size: 18;" text="3. Reboot to bootloader." textAlignment="CENTER" />
+            <Text layoutX="51.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Enable OEM Unlock." wrappingWidth="166.0" />
+            <Button fx:id="oemunlocktip" layoutX="194.0" layoutY="138.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" styleClass="circle-info" />
             <Button fx:id="pixeltip" layoutX="203.0" layoutY="9.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="55.0" scaleX="0.4" scaleY="0.4" scaleZ="0.4" styleClass="circle-info" />
             <Text fx:id="pixelerrortext" layoutX="1.0" layoutY="549.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="280" />
-            <ListView fx:id="imagelist" layoutX="9.0" layoutY="269.0" prefHeight="190.0" prefWidth="269.0" />
+            <ListView fx:id="imagelist" layoutX="9.0" layoutY="299.0" prefHeight="160.0" prefWidth="269.0" />
             <Button fx:id="pixelfileselector" alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="468.0" mnemonicParsing="false" onAction="#selectOSImage" prefHeight="55.0" prefWidth="144.0" text="Not listed?" textAlignment="CENTER" />
+            <Button fx:id="pixeldownload" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="33.0" prefWidth="256.0" style="-fx-font-size: 18;" text="4. Download image." textAlignment="CENTER" />
          </children>
       </Pane>
-      <Pane id="content-box" fx:id="samsungpane" layoutX="21.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" visible="false">
+      <Pane fx:id="samsungpane" layoutX="21.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" visible="false">
          <children>
             <Label fx:id="samsungflash" layoutX="17.0" prefHeight="73.0" prefWidth="311.0" text="Samsung Firmware Flash" textAlignment="CENTER">
             </Label>

@@ -23,61 +23,29 @@ import java.io.IOException;
 public class AppleController {
 
     @FXML
-    private Button apple;
+    private void handleButtonClick(ActionEvent e) throws IOException {
 
-    @FXML
-    private Button android;
-
-    @FXML
-    private Button pc;
-
-    @FXML
-    private Button playstation;
-
-    @FXML
-    private Button xbox;
-
-    @FXML
-    private void handleButtonClick(ActionEvent e) {
         Stage stage = (Stage) ((Node) e.getTarget()).getScene().getWindow();
         SceneController sceneController = new SceneController();
         Button clickedButton = (Button) e.getSource();
 
-        if (clickedButton == apple) {
-            // Apple button was clicked
-            try {
-                sceneController.setView(stage, "/apple.fxml");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (clickedButton == android) {
-            // Android button was clicked
-            try {
-                sceneController.setView(stage, "/android.fxml");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (clickedButton == pc) {
-            // PC button was clicked
-            try {
-                sceneController.setView(stage, "/pc.fxml");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (clickedButton == playstation) {
-            // PlayStation button was clicked
-            try {
-                sceneController.setView(stage, "/playstation.fxml");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (clickedButton == xbox) {
-            // Xbox button was clicked
-            try {
-                sceneController.setView(stage, "/xbox.fxml");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+        switch (clickedButton.getId()) {
+            case "apple" ->
+                // Apple button was clicked
+                    sceneController.setView(stage, "/apple.fxml");
+            case "android" ->
+                // Android button was clicked
+                    sceneController.setView(stage, "/android.fxml");
+            case "pc" ->
+                // PC button was clicked
+                    sceneController.setView(stage, "/pc.fxml");
+            case "playstation" ->
+                // PlayStation button was clicked
+                    sceneController.setView(stage, "/playstation.fxml");
+            case "xbox" ->
+                // Xbox button was clicked
+                    sceneController.setView(stage, "/xbox.fxml");
+            default -> throw new IllegalStateException("Unexpected value: " + clickedButton.getId());
         }
     }
 

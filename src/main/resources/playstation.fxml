@@ -2,61 +2,50 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Text?>
 
-<Pane fx:controller="com.freyja.controllers.PlaystationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.image.Image?>
+<Pane id="content-box" fx:id="ps" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.freyja.controllers.PlaystationController">
    <children>
-      <Button fx:id="apple" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
-      <Button fx:id="android" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
-      <Button fx:id="pc" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
-      <Button fx:id="xbox" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
-      <Button fx:id="playstation" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" id="selected" layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
-      <Pane id="content-box" layoutX="97.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Button fx:id="apple" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Apple" />
+      <Button fx:id="android" layoutX="256.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Android" />
+      <Button fx:id="pc" layoutX="512.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="PC" />
+      <Button layoutX="768.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Xbox" fx:id="xbox" />
+      <Button id="selected" fx:id="playstation" layoutX="1024.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="60.0" prefWidth="256.0" style="-fx-background-radius: 0px;" text="Playstation" />
+      <Pane layoutX="945.0" layoutY="107.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
          <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="                Firmware Flash" textAlignment="CENTER">
+            <Label prefHeight="73.0" prefWidth="286.0" text="           Create Update USB" textAlignment="CENTER">
             </Label>
-            <ListView layoutX="27.0" layoutY="107.0" prefHeight="337.0" prefWidth="233.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
-         </children></Pane>
-      <Pane id="content-box" layoutX="497.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
-         <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="                 Data Transfer" textAlignment="CENTER">
-            </Label>
-            <Label layoutX="14.0" layoutY="155.0" prefHeight="33.0" prefWidth="139.0" text="From:" />
-            <Label layoutX="14.0" layoutY="260.0" prefHeight="33.0" prefWidth="139.0" text="To:" />
+            <Label layoutX="17.0" layoutY="122.0" prefHeight="33.0" prefWidth="253.0" text="Playstation Model:" />
+            <Label layoutX="17.0" layoutY="239.0" prefHeight="33.0" prefWidth="253.0" text="Device:" />
             <Accordion layoutX="52.0" layoutY="283.0" />
-            <MenuButton layoutX="16.0" layoutY="197.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
-            <MenuButton layoutX="15.0" layoutY="300.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-            </MenuButton>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+            <ChoiceBox fx:id="psmodels" layoutX="16.0" layoutY="164.0" prefHeight="48.0" prefWidth="256.0">
+            </ChoiceBox>
+            <ChoiceBox fx:id="devices" layoutX="16.0" layoutY="279.0" prefHeight="48.0" prefWidth="256.0">
+            </ChoiceBox>
+            <Button fx:id="installusb" alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleButtonClick" text="Install" textAlignment="CENTER" />
+            <Text fx:id="usbstatus" layoutX="1.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="286.0" />
          </children></Pane>
-      <Pane id="content-box" layoutX="896.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane fx:id="tester" layoutX="45.0" layoutY="107.0" prefHeight="565.0" prefWidth="851.0">
          <children>
-            <Label prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
-            </Label>
-            <Label layoutX="16.0" layoutY="87.0" prefHeight="33.0" prefWidth="139.0" text="Device:" />
-            <MenuButton layoutX="15.0" layoutY="130.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="256.0" text="MenuButton">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-            </MenuButton>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="187.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="98.0" text="Button" textAlignment="CENTER" />
-            <ListView layoutX="27.0" layoutY="257.0" prefHeight="209.0" prefWidth="233.0" />
-         </children></Pane>
+            <ImageView fitHeight="361.0" fitWidth="559.0" layoutX="148.0" layoutY="148.0">
+               <image>
+                  <Image url="psoutline.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="285.0" layoutY="23.0" prefHeight="73.0" prefWidth="286.0" text="              Controller Tester" textAlignment="CENTER" />
+            <Circle fill="DODGERBLUE" layoutX="342.0" layoutY="326.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="DODGERBLUE" layoutX="512.0" layoutY="326.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="buttonactive" fill="DODGERBLUE" layoutX="553.0" layoutY="252.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+            <Ellipse fill="DODGERBLUE" layoutX="304.0" layoutY="194.0" radiusX="7.0" radiusY="12.0" rotate="165.4" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fill="DODGERBLUE" layoutX="551.0" layoutY="193.0" radiusX="7.0" radiusY="12.0" rotate="15.6" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </Pane>
    </children>
 </Pane>

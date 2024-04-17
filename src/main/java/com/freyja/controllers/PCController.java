@@ -45,6 +45,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.freyja.helpers.CommonsHelper.*;
+
+import static com.freyja.helpers.CommonsHelper.formatSize;
+
 public class PCController {
 
     @FXML
@@ -52,6 +56,9 @@ public class PCController {
 
     @FXML
     private ChoiceBox<String> originaldrive;
+
+    @FXML
+    private Button cancelclone;
 
     @FXML
     protected void initialize() {
@@ -82,23 +89,6 @@ public class PCController {
         }
     }
 
-    // Helper method to format the size in a human-readable format
-    private static String formatSize(long size) {
-        final String[] units = {"B", "KB", "MB", "GB", "TB"};
-        int unitIndex = 0;
-        double formattedSize = size;
-
-        while (formattedSize >= 1024 && unitIndex < units.length - 1) {
-            formattedSize /= 1024;
-            unitIndex++;
-        }
-
-        return String.format("%.2f %s", formattedSize, units[unitIndex]);
-    }
-
-    @FXML
-    private Button apple, android,pc, playstation, xbox, cancelclone;
-
     @FXML
     private Text transfertext, healthpercent, alerts;
 
@@ -118,27 +108,30 @@ public class PCController {
             processBuilder.start();
         }
 
-        if (clickedButton == apple) {
-            // Apple button was clicked
-            sceneController.setView(stage, "/apple.fxml");
-        } else if (clickedButton == android) {
-            // Android button was clicked
-            sceneController.setView(stage, "/android.fxml");
-        } else if (clickedButton == pc) {
-            // PC button was clicked
-            sceneController.setView(stage, "/pc.fxml");
-        } else if (clickedButton == playstation) {
-            // PlayStation button was clicked
-            sceneController.setView(stage, "/playstation.fxml");
-        } else if (clickedButton == xbox) {
-            // Xbox button was clicked
-            sceneController.setView(stage, "/xbox.fxml");
-        } else if (clickedButton == cancelclone) {
-            ProcessBuilder processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "Robocopy.exe");
-            processBuilder.start();
-            cancelclone.setVisible(false);
-            transfertext.setVisible(false);
-            transferprogress.setVisible(false);
+        switch (clickedButton.getId()) {
+            case "apple" ->
+                // Apple button was clicked
+                    sceneController.setView(stage, "/apple.fxml");
+            case "android" ->
+                // Android button was clicked
+                    sceneController.setView(stage, "/android.fxml");
+            case "pc" ->
+                // PC button was clicked
+                    sceneController.setView(stage, "/pc.fxml");
+            case "playstation" ->
+                // PlayStation button was clicked
+                    sceneController.setView(stage, "/playstation.fxml");
+            case "xbox" ->
+                // Xbox button was clicked
+                    sceneController.setView(stage, "/xbox.fxml");
+            case "cancelclone" -> {
+                ProcessBuilder processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "Robocopy.exe");
+                processBuilder.start();
+                cancelclone.setVisible(false);
+                transfertext.setVisible(false);
+                transferprogress.setVisible(false);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + clickedButton.getId());
         }
     }
 

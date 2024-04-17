@@ -11,6 +11,8 @@
 
 package com.freyja.controllers;
 
+import com.freyja.helpers.AndroidHelper.*;
+
 import com.freyja.SceneController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -20,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -28,7 +31,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.io.FileUtils;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,6 +43,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AndroidController {
@@ -48,69 +54,33 @@ public class AndroidController {
     // Create the ProcessBuilder for Heimdall
     //File heimexec = new File(Objects.requireNonNull(AndroidController.class.getClassLoader().getResource("heimdall/heimdall.exe")).toURI());
 
-    @FXML
-    private Button apple;
+    ADBExecuter adb = new ADBExecuter();
 
     @FXML
-    private Button android;
+    private Button /*Cancel button for Backup pane*/ cancelbackup,
+                   /*Start button for Backup pane*/ beginbackup;
 
     @FXML
-    private Button pc;
+    private Button /*Cancel button for Restore pane*/ cancelrestore,
+                   /*Start button for Restore pane*/ restorebutton;
 
-    @FXML
-    private Button playstation;
-
-    @FXML
-    private Button xbox;
-
-    @FXML
-    private Button cancelbackup;
-
-    @FXML
-    private Button beginbackup;
-
-    @FXML
-    private Button deletebackup;
-
-    @FXML
-    private Button cancelrestore;
-
-    @FXML
-    private Button restorebutton;
-
-    // I think I removed/renamed this one? Need to check and clean up later.
-    @FXML
-    private Button devicetip;
-
-    //Buttons for "Pixel Firmware Flash" section
     @FXML
     private Button /*"2. OEM Unlock" Tooltop*/ oemunlocktip,
                    /*Pixel title tooltip*/ pixeltip,
-                   /*Reboot to bootloader in pixel*/ bootloaderbtnpixel,
-                   /*File selector dropdown in the pixel section*/ pixelfileselector,
-                   /*Initiate flashing for Pixels*/ pixelflashbtn;
-
-    //Buttons for "Firmware Flash" section
-    @FXML
-    private Button /*Title tooltip*/ firmtip,
-                   /*"Next" button for firmware flash*/ mannext;
+                   /*Title tooltip*/ firmtip,
+                   /*Samsung tooltip*/ flashtip,
+                   /*Tip for backup pane*/ devicetip,
+                   /*ADB pane tip*/ devicetip1;
 
     @FXML
-    private Button /*Samsung image selector*/ samsungfileselector,
-                   /*Samsung title tooltip*/ flashtip,
-                   /*Opens Samsung firmware site*/ firmwarelink,
-                   /*Installs the zadag Samsung driver*/ installdriver,
-                   /*Reboots Samsung device into Odin Mode*/ odinmode;
+    private ChoiceBox<String> /*Device selector for backup pane*/ backupchoice,
+                              /*Device selector for pixel firmware flash pane*/ pixelselect,
+                              /*Device selector for samsung firmware flash pane*/ samsungselect,
+                              /*Device selector for the ADB quick command pane*/ adbselect,
+                              /*Selector for firmware pane*/ manufacturorbox;
 
     @FXML
-    private ChoiceBox<String> backupchoice, deviceselect, pixelselect;
-
-    // This is the selector for the firmware flash section
-    @FXML
-    private ChoiceBox<String> manufacturorbox;
-
-    @FXML
-    private Text timeelapsed, samsungerrortxt, pixelerrortext;
+    private Text timeelapsed, samsungerrortxt, pixelerrortext, adberrortext;
 
     @FXML
     private ListView<String> restorelist, imagelist;
@@ -125,55 +95,37 @@ public class AndroidController {
     }
 
     @FXML
-    protected void initialize() throws IOException {
-        Tooltip cancelRestoreTip = new Tooltip("Technically, it should be safe to cancel an ADB restore.\nHowever, there is a small chance of data corruption\nor additional damage. Only cancel an active\nrestore as a last resort.\n(Restores, at worst, can take over an hour.)");
-        cancelRestoreTip.setShowDelay(javafx.util.Duration.millis(100));
-        Tooltip.install(cancelrestore, cancelRestoreTip);
+    protected void initialize() {
 
-        Tooltip deviceTip = new Tooltip("Devices must have USB debugging enabled.");
-        deviceTip.setShowDelay(javafx.util.Duration.millis(100));
-        Tooltip.install(devicetip, deviceTip);
+        String debugging = "Devices must have USB debugging enabled.";
 
-        Tooltip oemUnlockTip = new Tooltip("OEM Unlock is usually a switch in developer settings.\nOn some phone this option is located in the recovery\nmode options.");
-        oemUnlockTip.setShowDelay(javafx.util.Duration.millis(100));
-        Tooltip.install(oemunlocktip, oemUnlockTip);
-
-        Tooltip flashTip = new Tooltip("You can only flash images onto\ncarrier UNLOCKED devices.");
-        flashTip.setShowDelay(javafx.util.Duration.millis(100));
-        Tooltip.install(flashtip, flashTip);
+        customTip(cancelrestore, "Technically, it should be safe to cancel an ADB restore.\nHowever, there is a small chance of data corruption\nor additional damage. Only cancel an active\nrestore as a last resort.\n(Restores, at worst, can take over an hour.)");
+        customTip(oemunlocktip, "OEM Unlock is usually a switch in developer settings.\nOn some phones this option is located in the recovery\nmode options.");
+        customTip(firmtip,debugging);
+        customTip(flashtip,debugging);
+        customTip(pixeltip,debugging);
+        customTip(devicetip,debugging);
+        customTip(devicetip1,debugging);
+        //This might no longer be the case. Will remain commented out until further tested can be completed.
+        // customTip(flashtip, "You can only flash images onto\ncarrier UNLOCKED devices.");
 
         manufacturorbox.getItems().add("Google Pixel");
         manufacturorbox.getItems().add("Samsung");
 
-        // Execute the temporary file
-        ProcessBuilder processBuilder = new ProcessBuilder(adbexec.toString(), "devices", "-l");
-
-        // Start the process
-        Process process = processBuilder.start();
-
-        // Read the output of the process
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Skip the first line (header) and empty lines
-                if (!line.isEmpty() && !line.startsWith("List of devices attached")) {
-                    // Split the line by whitespace and get the device ID
-                    String[] parts = line.split("\\s+");
-                    if (parts.length > 3) {
-                        // Add device name to list
-                        backupchoice.getItems().add(parts[0] + " : " + (parts[3].replace("model:", "")).replace("_", " "));
-                        deviceselect.getItems().add(parts[0] + " : " + (parts[3].replace("model:", "")).replace("_", " "));
-                    } else {
-                        backupchoice.getItems().add("Error: USB Debugging is disabled for this device.");
-                        deviceselect.getItems().add("Error: USB Debugging is disabled for this device.");
-                    }
-                }
-            }
-        }
+        adb.devicesADB(samsungselect);
+        adb.devicesADB(pixelselect);
+        adb.devicesADB(backupchoice);
+        adb.devicesADB(adbselect);
 
         listRestores();
         listImages();
 
+    }
+
+    public void customTip (Button tip, String tipText) {
+        Tooltip temp = new Tooltip(tipText);
+        temp.setShowDelay(javafx.util.Duration.millis(100));
+        Tooltip.install(tip, temp);
     }
 
     /*
@@ -212,7 +164,7 @@ public class AndroidController {
      */
     public void listImages() {
 
-        // Clears contents of the list so it doesn't double the items.
+        // Clears contents of the list, so it doesn't double the items.
         imagelist.getItems().clear();
 
         // Set dir path
@@ -230,43 +182,61 @@ public class AndroidController {
     }
 
     @FXML
-    private void handleButtonClick(ActionEvent e) throws IOException {
+    private void handleButtonClick(ActionEvent e) throws IOException, URISyntaxException {
         Stage stage = (Stage) ((Node) e.getTarget()).getScene().getWindow();
         SceneController sceneController = new SceneController();
         Button clickedButton = (Button) e.getSource();
 
-        if (clickedButton == apple) {
-            // Apple button was clicked
-            sceneController.setView(stage, "/apple.fxml");
-        } else if (clickedButton == android) {
-            // Android button was clicked
-            sceneController.setView(stage, "/android.fxml");
-        } else if (clickedButton == pc) {
-            // PC button was clicked
-            sceneController.setView(stage, "/pc.fxml");
-        } else if (clickedButton == playstation) {
-            // PlayStation button was clicked
-            sceneController.setView(stage, "/playstation.fxml");
-        } else if (clickedButton == xbox) {
-            // Xbox button was clicked
-            sceneController.setView(stage, "/xbox.fxml");
-        } else if (clickedButton == deletebackup) {
-            Files.deleteIfExists(Paths.get(restorelist.getSelectionModel().getSelectedItem()));
-            listRestores();
-        } else if (clickedButton == mannext) {
-            String manItem = manufacturorbox.getSelectionModel().getSelectedItem();
-            switch (manItem) {
-                case "Google Pixel":
-                    firmwarepane.setVisible(false);
-                    pixelpane.setVisible(true);
-                    break;
-                case "Samsung":
-                    firmwarepane.setVisible(false);
-                    samsungpane.setVisible(true);
-                    break;
-                default:
-                    manufacturorbox.getSelectionModel().clearSelection();
+        switch (clickedButton.getId()) {
+            case "apple" ->
+                // Apple button was clicked
+                sceneController.setView(stage, "/apple.fxml");
+            case "android" ->
+                // Android button was clicked
+                sceneController.setView(stage, "/android.fxml");
+            case "pc" ->
+                // PC button was clicked
+                sceneController.setView(stage, "/pc.fxml");
+            case "playstation" ->
+                // PlayStation button was clicked
+                sceneController.setView(stage, "/playstation.fxml");
+            case "xbox" ->
+                // Xbox button was clicked
+                sceneController.setView(stage, "/xbox.fxml");
+            case "deletebackup" -> {
+                Files.deleteIfExists(Paths.get(restorelist.getSelectionModel().getSelectedItem()));
+                listRestores();
             }
+            case "mannext" -> {
+                String manItem = manufacturorbox.getSelectionModel().getSelectedItem();
+                switch (manItem) {
+                    case "Google Pixel" -> {
+                        firmwarepane.setVisible(false);
+                        pixelpane.setVisible(true);
+                    }
+                    case "Samsung" -> {
+                        firmwarepane.setVisible(false);
+                        samsungpane.setVisible(true);
+                    }
+                    default -> manufacturorbox.getSelectionModel().clearSelection();
+                }
+            }
+            case "adbboot" ->
+                adb.executeADBCommand("-s " + adbselect.getSelectionModel().getSelectedItem().replaceAll(" : [A-z0-9 ]*$", "") + " reboot bootloader");
+            case "adbrecovery" ->
+                adb.executeADBCommand("-s " + adbselect.getSelectionModel().getSelectedItem().replaceAll(" : [A-z0-9 ]*$", "") + " reboot recovery");
+            case "adbimei" ->
+                adberrortext.setText(adb.executeFastbootCommand("getvar imei"));
+            case "adboemunlock" ->
+                adberrortext.setText(adb.executeFastbootCommand("flashing unlock"));
+            case "adboemlock" ->
+                adberrortext.setText(adb.executeFastbootCommand("flashing lock"));
+            case "pixeldownload" -> {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    Desktop.getDesktop().browse(new URI("https://developers.google.com/android/ota"));
+                }
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + clickedButton.getId());
         }
     }
 
@@ -295,7 +265,7 @@ public class AndroidController {
             String deviceid = backupchoice.getValue().replaceAll(" : [A-z0-9 ]*$", "");
 
             // Execute the temporary file
-            ProcessBuilder backupBuilder = new ProcessBuilder(adbexec.getAbsolutePath(), "-s", deviceid, "backup", "-apk", "-shared", "-all", "-nosystem", "-f", backupname);
+            ProcessBuilder backupBuilder = new ProcessBuilder(adbexec.getAbsolutePath(), "-s", deviceid, "backup", "-apk", "-shared", "-all", "-system", "-f", backupname);
 
             CompletableFuture.runAsync(() -> {
                 try {
@@ -410,11 +380,45 @@ public class AndroidController {
      * (They use the same ADB designation.)
      *
      */
-    public void bootToBootloader() throws IOException {
-        // This strips the extra characters to give us just the ID for the device.
-        String deviceid = deviceselect.getValue().replaceAll(" : [A-z0-9 ]*$", "");
-        ProcessBuilder rebootProcess = new ProcessBuilder(adbexec.getAbsolutePath(), "-s", deviceid, "reboot", "bootloader");
-        rebootProcess.start();
+    public void bootToBootloader(ActionEvent e) {
+        // Get the pane from which this function was executed.
+        Pane parentPane = (Pane) ((Button) e.getSource()).getParent();
+
+        String deviceid = "";
+
+        switch (parentPane.getId()) {
+            case "pixelpane" -> {
+                if (pixelselect.getSelectionModel().getSelectedItem() != null) {
+                    // This strips the extra characters to give us just the ID for the device.
+                    deviceid = pixelselect.getSelectionModel().getSelectedItem().replaceAll(" : [A-z0-9 ]*$", "");
+                    adb.executeADBCommand("-s " + deviceid + " reboot bootloader");
+                } else {
+                    pixelerrortext.setText("No device selected.");
+                    pixelerrortext.setFill(Color.RED);
+                }
+            }
+            case "samsungpane" -> {
+                if (samsungselect.getSelectionModel().getSelectedItem() != null) {
+                    // This strips the extra characters to give us just the ID for the device.
+                    deviceid = samsungselect.getSelectionModel().getSelectedItem().replaceAll(" : [A-z0-9 ]*$", "");
+                    adb.executeADBCommand("-s " + deviceid + " reboot bootloader");
+                } else {
+                    samsungerrortxt.setText("No device selected.");
+                    samsungerrortxt.setFill(Color.RED);
+                }
+            }
+            case "adbpane" -> {
+                if (adbselect.getSelectionModel().getSelectedItem() != null) {
+                    // This strips the extra characters to give us just the ID for the device.
+                    deviceid = adbselect.getSelectionModel().getSelectedItem().replaceAll(" : [A-z0-9 ]*$", "");
+                    adb.executeADBCommand("-s " + deviceid + " reboot bootloader");
+                } else {
+                    adberrortext.setText("No device selected.");
+                    adberrortext.setFill(Color.RED);
+                }
+            }
+            default -> throw new IllegalStateException("Unexpected value: ");
+        }
     }
 
     /*

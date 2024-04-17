@@ -8,21 +8,21 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:controller="com.freyja.controllers.AppleController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="content-box" fx:controller="com.freyja.controllers.AppleController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@scene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="apple" style="-fx-background-radius: 0px;" id="selected" onAction="#handleButtonClick" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Apple" />
       <Button fx:id="android" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="256.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Android" />
       <Button fx:id="pc" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="512.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="PC" />
       <Button fx:id="xbox" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="768.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Xbox" />
       <Button fx:id="playstation" style="-fx-background-radius: 0px;" onAction="#handleButtonClick" layoutX="1024.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" text="Playstation" />
-      <Pane id="content-box" layoutX="97.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane layoutX="97.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="                Firmware Flash" textAlignment="CENTER">
             </Label>
             <ListView layoutX="27.0" layoutY="107.0" prefHeight="337.0" prefWidth="233.0" />
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
          </children></Pane>
-      <Pane id="content-box" layoutX="497.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
+      <Pane layoutX="497.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0" stylesheets="@scene.css">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="                 Data Transfer" textAlignment="CENTER">
             </Label>
@@ -43,7 +43,7 @@
             </MenuButton>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="480.0" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
          </children></Pane>
-      <Pane id="content-box" layoutX="896.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
+      <Pane layoutX="896.0" layoutY="109.0" prefHeight="565.0" prefWidth="287.0">
          <children>
             <Label prefHeight="73.0" prefWidth="286.0" text="               Backup/Restore" textAlignment="CENTER">
             </Label>

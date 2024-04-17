@@ -38,10 +38,15 @@ Text {
 }
 
 #content-box {
+    -fx-font-family : "Coolvetica";
+    -fx-background-color : #f4f4f4;
+}
+
+Pane {
     -fx-background-color: #A8B3A6;
 }
 
 .root {
     -fx-font-family : "Coolvetica";
-    -fx-background1 : rgb(225,227,2255);
+    -fx-background1 : rgb(225,227,225);
 }
